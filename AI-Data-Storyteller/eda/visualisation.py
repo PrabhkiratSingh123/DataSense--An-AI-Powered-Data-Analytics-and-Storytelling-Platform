@@ -16,12 +16,12 @@ def plot_bar(df: pd.DataFrame):
     return "Not enough columns for bar chart (need 1 categorical, 1 numeric)."
 
 def plot_pie(df: pd.DataFrame):
-    cat_cols = df.select_dtypes(include=['object', 'category']).columns
-    if len(cat_cols) > 0:
-        counts = df[cat_cols[0]].value_counts().reset_index().head(10)
-        counts.columns = [cat_cols[0], 'count']
-        return px.pie(counts, names=cat_cols[0], values='count', title=f"Pie Chart of {cat_cols[0]}")
-    return "No categorical columns available for pie chart."
+        cat_cols = df.select_dtypes(include=['object', 'category']).columns
+        if len(cat_cols) > 0:
+            counts = df[cat_cols[0]].value_counts().reset_index().head(10)
+            counts.columns = [cat_cols[0], 'count']
+            return px.pie(counts, names=cat_cols[0], values='count', title=f"Pie Chart of {cat_cols[0]}")
+        return "No categorical columns available for pie chart."
 
 def plot_scatter(df: pd.DataFrame):
     num_cols = df.select_dtypes(include='number').columns

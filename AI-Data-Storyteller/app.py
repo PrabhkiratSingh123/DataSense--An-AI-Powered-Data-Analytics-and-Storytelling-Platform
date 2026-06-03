@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
-from eda.summary import get_summary
+from eda.summary import get_summary,get_statistical_summary,get_correlation_matrix,get_column_summary
 from eda.visualisation import plot_histogram, plot_bar, plot_pie, plot_scatter, plot_line
-from eda.profiling import generate_profile_report
-
+from preprocessing.cleaner import clean_dataset
 st.title("AI Data Storyteller")
 
 uploaded_file = st.file_uploader(
@@ -25,11 +24,14 @@ if uploaded_file:
         st.write(df)
     if st.button("Summary"):
         st.write(get_summary(df))
-    if st.button("Generate Profile Report"):
-        st.info("Generating report... this might take a moment.")
-        report = generate_profile_report(df)
-        import streamlit.components.v1 as components
-        components.html(report.to_html(), height=1000, scrolling=True)
+        st.write("statistical summary")
+        st.write(get_statistical_summary(df))
+        st.write("correlation matrix")
+        st.write(get_correlation_matrix(df))
+        st.write("column summary")
+        st.write(get_column_summary(df))
+    if st.button("clean dataset"):
+        st.write(clean_dataset(df))
     if st.button("Visualisation"):
         st.write(plot_histogram(df))
         st.write(plot_bar(df))
